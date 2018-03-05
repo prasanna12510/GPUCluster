@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: logi-gpu
-    image: prasanna1994/jupyter-notebook
+    image: swiftdiaries/bench
     command: 
     - "/bin/bash"
     - "-c"
