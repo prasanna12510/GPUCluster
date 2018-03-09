@@ -13,7 +13,7 @@ spec:
     resources:
        limits:
         nvidia.com/gpu: 1
-   volumeMounts:
+    volumeMounts:
     - name: nvidia-driver-384-111
       mountPath: /usr/local/nvidia
       readOnly: true
