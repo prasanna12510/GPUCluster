@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
+  name: nfs
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 172.21.65.100
+    path: "/Users/Shared/"
