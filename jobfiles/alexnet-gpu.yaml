@@ -11,7 +11,7 @@ spec:
     - "-c"
     - " python tf_cnn_benchmarks.py --device=gpu --model=alexnet --batch_size=32"
     resources:
-       limits:
+       requests:
         nvidia.com/gpu: 1
     volumeMounts:
     - name: nvidia-driver-384-111
