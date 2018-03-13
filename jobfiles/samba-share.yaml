@@ -16,7 +16,7 @@ spec:
       limits:
         nvidia.com/gpu: 1 
     volumeMounts:
-    - name: nfs
+    - name: mycifspv
       mountPath: "/mnt"
     - name: nvidia-driver-384-111
       mountPath: /usr/local/nvidia
@@ -30,9 +30,9 @@ spec:
       readOnly: true
   restartPolicy: Never
   volumes:
-  - name: nfs
+  - name: mycifspv
     persistentVolumeClaim:
-      claimName: nfs
+      claimName: mycifspv
   - name: nvidia-driver-384-111
     hostPath:
       path: /usr/lib/nvidia-384

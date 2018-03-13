@@ -16,8 +16,8 @@ spec:
       limits:
         nvidia.com/gpu: 1 
     volumeMounts:
-    - name: nfs
-      mountPath: "/mnt"
+    - name: cifs-share
+      mountPath: /data
     - name: nvidia-driver-384-111
       mountPath: /usr/local/nvidia
       readOnly: true
@@ -30,9 +30,14 @@ spec:
       readOnly: true
   restartPolicy: Never
   volumes:
-  - name: nfs
-    persistentVolumeClaim:
-      claimName: nfs
+  - name: cifs-share
+    flexVolume:
+      driver: "hodique.info/cifs"
+      secretRef:
+        name: cifs-secret
+      options:
+        source: "//172.21.65.100/Development/"
+        mountOptions: "dir_mode=0700,file_mode=0600"
   - name: nvidia-driver-384-111
     hostPath:
       path: /usr/lib/nvidia-384

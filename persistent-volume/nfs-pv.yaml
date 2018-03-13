@@ -11,4 +11,4 @@ spec:
     - ReadWriteMany
   nfs:
     server: 172.21.65.100
-    path: "/Users/Shared/"
+    path: "/volume1/Development/"
