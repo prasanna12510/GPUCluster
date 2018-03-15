@@ -1,0 +1,66 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: kaldi-logi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kaldi-logi
+    spec:
+      containers:
+      - name: kaldi-logi
+        image: yaoyuan7/kaldi
+        ports:
+        - containerPort: 8888
+        resources:
+          limits:
+             nvidia.com/gpu: 1
+        volumeMounts:
+        - name: yaoyuan7-kaldi
+          mountPath: "/mnt"
+        - name: nvidia-driver-384-111
+          mountPath: /usr/local/nvidia
+          readOnly: true
+        - name: libcuda-so
+          mountPath: /usr/lib/x86_64-linux-gnu/libcuda.so
+        - name: libcuda-so-1
+          mountPath: /usr/lib/x86_64-linux-gnu/libcuda.so.1
+        - name: libcuda-so-384-111
+          mountPath: /usr/lib/x86_64-linux-gnu/libcuda.so.384.111
+          readOnly: true
+      volumes:
+      - name: yaoyuan7-kaldi
+        persistentVolumeClaim:
+          claimName: mycifspv
+      - name: nvidia-driver-384-111
+        hostPath:
+          path: /usr/lib/nvidia-384
+      - name: libcuda-so
+        hostPath:
+          path: /usr/lib/x86_64-linux-gnu/libcuda.so
+      - name: libcuda-so-1
+        hostPath:
+          path: /usr/lib/x86_64-linux-gnu/libcuda.so.1
+      - name: libcuda-so-384-111
+        hostPath:
+          path: /usr/lib/x86_64-linux-gnu/libcuda.so.384.111
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kaldi-logi-service
+  labels:
+    app: kaldi-logi
+spec:
+  selector:
+    app: kaldi-logi
+  ports:
+  - port: 8888
+    protocol: TCP
+    nodePort: 30061
+  type: NodePort
+---

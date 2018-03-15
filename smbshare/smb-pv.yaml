@@ -3,10 +3,10 @@ kind: PersistentVolume
 metadata:
   annotations:
     volume.beta.kubernetes.io/storage-class: standard
-  name: mycifspv
+  name: yaoyuan7-kaldi
 spec:
   capacity:
-    storage: 20Gi
+    storage: 100Gi
   accessModes:
     - ReadWriteMany
   flexVolume:
